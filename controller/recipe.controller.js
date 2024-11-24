@@ -50,43 +50,60 @@ const getAllRecipes = async (req, res) => {
 };
 
 const updateRecipe = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    // Ensure only the creator can update the recipe
-    const recipe = await Recipe.findOne({ _id: id, createdBy: req.user.id });
-    if (!recipe) {
-      return res
-        .status(403)
-        .json({ message: "You are not authorized to update this recipe" });
+    const { id } = req.params;
+  
+    try {
+      // Ensure the logged-in user is the creator
+      const recipe = await Recipe.findOne({ _id: id, createdBy: req.user.id });
+      if (!recipe) {
+        return res
+          .status(403)
+          .json({ message: "You are not authorized to update this recipe" });
+      }
+  
+      // Define allowed fields for update
+      const allowedUpdates = [
+        "title",
+        "ingredients",
+        "instructions",
+        "cuisineType",
+        "image"
+      ];
+  
+      const updates = Object.keys(req.body);
+  
+      // Validate update fields
+      const isValidOperation = updates.every((key) => allowedUpdates.includes(key));
+      if (!isValidOperation) {
+        return res
+          .status(400)
+          .json({ message: "Invalid update fields. Only allowed fields can be updated." });
+      }
+  
+      // Check if no valid updates were provided
+      if (updates.length === 0 && !req.file) {
+        return res.status(400).json({ message: "No valid fields provided for update." });
+      }
+  
+      // Update recipe fields from req.body
+      Object.assign(recipe, req.body);
+  
+      // Handle file upload (if image is included)
+      if (req.file) {
+        recipe.image = req.file.path; // Update the image field
+      }
+  
+      // Save recipe
+      await recipe.save();
+  
+      res.status(200).json({ message: "Recipe updated successfully", recipe });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error updating recipe", error: error.message });
     }
-
-    // Validate and update fields
-    const allowedUpdates = [
-      "title",
-      "ingredients",
-      "instructions",
-      "cuisineType",
-    ];
-    const updates = Object.keys(req.body);
-    const isValidOperation = updates.every((key) =>
-      allowedUpdates.includes(key)
-    );
-
-    if (!isValidOperation) {
-      return res.status(400).json({ message: "Invalid update fields" });
-    }
-
-    Object.assign(recipe, req.body);
-    await recipe.save();
-
-    res.status(200).json({ message: "Recipe updated successfully", recipe });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error updating recipe", error: error.message });
-  }
-};
+  };
+  
 
 const deleteRecipe = async (req, res) => {
   const { id } = req.params;
