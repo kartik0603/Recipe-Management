@@ -1,5 +1,3 @@
-// public/script.js
-
 // Handle the image carousel for the home page
 let carouselIndex = 0;
 
@@ -61,7 +59,46 @@ window.onload = function() {
     .catch((error) => {
       console.error("Error fetching recipes:", error);
     });
+
+  // Search functionality
+  const searchForm = document.getElementById("search-form");
+  const searchInput = document.getElementById("search-input");
+
+  searchForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+
+    if (query) {
+      fetch(`/recipes/search?cuisineType=${query}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.recipes && data.recipes.length > 0) {
+            recipeList.innerHTML = ''; 
+            data.recipes.forEach((recipe) => {
+              const card = document.createElement("div");
+              card.className = "bg-white shadow-md rounded overflow-hidden";
+              card.innerHTML = `
+                <img src="${recipe.image || '/default-recipe.jpg'}" alt="${recipe.title}" class="w-full h-40 object-cover">
+                <div class="p-4">
+                  <h3 class="text-xl font-bold text-primary">${recipe.title}</h3>
+                  <p class="text-gray-500 text-sm mb-2">${recipe.cuisineType}</p>
+                  <h4 class="font-semibold text-gray-600 text-sm mb-2">Ingredients:</h4>
+                  <ul class="list-disc list-inside text-gray-600 text-sm">
+                    ${recipe.ingredients.map((item) => `<li>${item}</li>`).join("")}
+                  </ul>
+                  <p class="text-gray-500 text-xs mt-4">Created by: ${recipe.createdBy || "Unknown"}</p>
+                  <a href="/recipes/${recipe._id}" class="text-accent hover:underline text-sm font-medium block mt-2">View Recipe</a>
+                </div>
+              `;
+              recipeList.appendChild(card);
+            });
+          } else {
+            recipeList.innerHTML = '<p class="text-center text-red-500">No recipes found for this cuisine type.</p>';
+          }
+        })
+        .catch((error) => {
+          console.error("Error searching recipes:", error);
+        });
+    }
+  });
 };
-
-
-

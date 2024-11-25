@@ -1,15 +1,19 @@
+
 module.exports = {
-  content: ["./views/**/*.html", "./public/js/**/*.js"],
+  content: [
+    './public/**/*.html', 
+    './public/js/**/*.js', 
+  ],
   theme: {
     extend: {
       colors: {
-        primary: "#1a202c",
-        accent: "#3182ce",
+        primary: '#4F46E5',  
+        accent: '#6366F1',   
       },
       fontFamily: {
-        body: ["Inter", "sans-serif"],
+        body: ['ui-sans-serif', 'system-ui', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'],
       },
     },
   },
   plugins: [],
-};
+}

@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Recipe - RecipeApp</title>
-  <link href="/public/css/style.css" rel="stylesheet"> 
+  <link href="/public/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-body">
-
   <!-- Navbar -->
   <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex items-center justify-between p-4">
@@ -24,25 +23,21 @@
   <section class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-md rounded">
     <h2 class="text-2xl font-bold text-center text-primary mb-4">Create a New Recipe</h2>
     <form id="create-recipe-form" method="POST" enctype="multipart/form-data" class="space-y-4">
-      <!-- Recipe Title -->
       <div class="flex flex-col">
         <label for="title" class="text-sm text-gray-700">Recipe Title</label>
         <input type="text" id="title" name="title" class="p-3 border rounded" required>
       </div>
 
-      <!-- Ingredients -->
       <div class="flex flex-col">
         <label for="ingredients" class="text-sm text-gray-700">Ingredients (Comma Separated)</label>
         <input type="text" id="ingredients" name="ingredients" class="p-3 border rounded" required>
       </div>
 
-      <!-- Instructions -->
       <div class="flex flex-col">
         <label for="instructions" class="text-sm text-gray-700">Instructions</label>
         <textarea id="instructions" name="instructions" class="p-3 border rounded" rows="5" required></textarea>
       </div>
 
-      <!-- Cuisine Type -->
       <div class="flex flex-col">
         <label for="cuisineType" class="text-sm text-gray-700">Cuisine Type</label>
         <select name="cuisineType" id="cuisineType" class="p-3 border rounded" required>
@@ -56,13 +51,11 @@
         </select>
       </div>
 
-      <!-- Recipe Image -->
       <div class="flex flex-col">
         <label for="image" class="text-sm text-gray-700">Upload Recipe Image</label>
         <input type="file" id="image" name="image" accept="image/*" class="p-3 border rounded" required>
       </div>
 
-      <!-- Submit Button -->
       <div class="text-center">
         <button type="submit" class="bg-primary text-white py-3 px-6 rounded mt-4">Create Recipe</button>
       </div>

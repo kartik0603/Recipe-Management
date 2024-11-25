@@ -46,16 +46,34 @@
         </div>
         <button type="submit" class="bg-primary text-white p-3 rounded hover:bg-primary-dark">Update Recipe</button>
       </form>
+
+      <!-- Delete Button -->
+      <button id="delete-btn" class="bg-red-500 text-white p-3 rounded hover:bg-red-600 mt-4">
+        Delete Recipe
+      </button>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="/scripts.js"></script>
+  <script src="/public/js/recipe-detail.js"></script>
 
   <script>
     // Back button functionality
     document.getElementById("back-btn").addEventListener("click", function() {
       window.history.back(); // This will take the user back to the previous page
+    });
+
+    // Delete button functionality
+    document.getElementById("delete-btn").addEventListener("click", async () => {
+      const recipeId = document.getElementById("recipe-id").value;
+
+      try {
+        const response = await axios.delete(`/recipes/${recipeId}`);
+        alert("Recipe deleted successfully!");
+        window.location.href = "/index.html"; // Redirect to index.html after deletion
+      } catch (error) {
+        alert(`Error deleting recipe: ${error.response?.data?.message || error.message}`);
+      }
     });
   </script>
 </body>
