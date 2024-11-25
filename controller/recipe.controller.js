@@ -103,6 +103,23 @@ const updateRecipe = async (req, res) => {
         .json({ message: "Error updating recipe", error: error.message });
     }
   };
+
+  // Get recipe details by ID
+const getRecipeDetails = async (req, res) => {
+  const { id } = req.params;
+  
+  try {
+    const recipe = await Recipe.findById(id).populate("createdBy", "username email");
+    
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.status(200).json({ recipe });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching recipe details", error: error.message });
+  }
+};
   
 
 const deleteRecipe = async (req, res) => {
@@ -163,4 +180,5 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   searchRecipes,
+  getRecipeDetails,
 };

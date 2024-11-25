@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body class="bg-gray-100 font-body">
+
+  <div class="container mx-auto p-8">
+    <div id="recipe-details" class="bg-white p-6 rounded shadow-lg">
+      <h1 class="text-3xl font-bold text-primary mb-4">Recipe Details</h1>
+      <div id="recipe-info">
+        <!-- Recipe details will be injected here -->
+      </div>
+
+      <!-- Back Button -->
+      <button id="back-btn" class="bg-secondary text-white p-3 rounded hover:bg-secondary-dark mt-4">
+        Go Back
+      </button>
+
+      <h2 class="text-xl font-semibold text-primary mt-6">Update Recipe</h2>
+      <form id="update-form" class="mt-4" enctype="multipart/form-data">
+        <input type="hidden" id="recipe-id">
+        <div class="mb-4">
+          <label for="title" class="block text-lg text-accent">Title</label>
+          <input type="text" id="title" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+        <div class="mb-4">
+          <label for="ingredients" class="block text-lg text-accent">Ingredients (comma separated)</label>
+          <input type="text" id="ingredients" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+        <div class="mb-4">
+          <label for="instructions" class="block text-lg text-accent">Instructions</label>
+          <textarea id="instructions" class="w-full p-2 border border-gray-300 rounded" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="cuisineType" class="block text-lg text-accent">Cuisine Type</label>
+          <input type="text" id="cuisineType" class="w-full p-2 border border-gray-300 rounded" required>
+        </div>
+        <div class="mb-4">
+          <label for="image" class="block text-lg text-accent">Image</label>
+          <input type="file" id="image" class="w-full p-2 border border-gray-300 rounded">
+        </div>
+        <button type="submit" class="bg-primary text-white p-3 rounded hover:bg-primary-dark">Update Recipe</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/scripts.js"></script>
+
+  <script>
+    // Back button functionality
+    document.getElementById("back-btn").addEventListener("click", function() {
+      window.history.back(); // This will take the user back to the previous page
+    });
+  </script>
+</body>
+</html>

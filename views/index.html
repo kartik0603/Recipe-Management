@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/public/css/style.css" rel="stylesheet">
+  <script src="/public/js/carousel.js" defer></script>
+  <script src="/public/js/recipes.js" defer></script>
+  <title>Recipe App</title>
+</head>
+<body class="bg-gray-100 font-body">
+  <!-- Navbar -->
+  <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <a href="/" class="text-3xl font-bold">RecipeApp</a>
+      <ul class="flex gap-6">
+        <li><a href="/login" class="hover:text-accent">Login</a></li>
+        <li><a href="/register" class="hover:text-accent">Register</a></li>
+        <li><a href="/recipes" class="hover:text-accent">All Recipes</a></li>
+        <li><a href="/create-recipe" class="hover:text-accent">Create Recipe</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Carousel -->
+  <div id="carousel" class="relative w-full h-72 overflow-hidden bg-gray-900">
+    <div class="slides absolute flex w-full h-full transition-transform duration-1000 ease-linear">
+      <img src="/images/carousel1.jpg" alt="Slide 1" class="w-full h-full object-cover">
+      <img src="/images/carousel2.jpg" alt="Slide 2" class="w-full h-full object-cover">
+      <img src="/images/carousel3.jpg" alt="Slide 3" class="w-full h-full object-cover">
+    </div>
+  </div>
+
+  <!-- Show All Recipes -->
+  <section class="container mx-auto my-10">
+    <h2 class="text-3xl font-bold text-center text-primary mb-6">All Recipes</h2>
+    <div id="recipe-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Recipes will be dynamically injected here -->
+    </div>
+    <div class="text-center mt-6">
+      <a href="/recipes" class="text-accent hover:underline font-medium">View All Recipes</a>
+    </div>
+  </section>
+</body>
+</html>
